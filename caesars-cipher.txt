@@ -1,0 +1,43 @@
+//This is the solution I used to pass the tests
+
+function rot13(str) {
+  let firstSet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
+  let secondSet = ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  let result = '';
+
+  for (let i = 0; i < str.length; i++) {
+    if (firstSet.indexOf(str[i]) !== -1) {
+      result += secondSet[firstSet.indexOf(str[i])];
+  } else if (secondSet.indexOf(str[i]) !== -1) {
+     result += firstSet[secondSet.indexOf(str[i])];
+  } else {
+    result += str[i];
+  }
+}
+  return result
+}
+
+//Another, more advanced option, would be:
+
+class Caesar {
+  constructor(upperStr){
+    this.input = upperStr;
+    this.output = "";
+    this._shift = 13;
+    this._charMap = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    
+    for(let char of this.input){
+      if(this._charMap.includes(char)){
+        let pos = this._charMap.indexOf(char) + this._shift;
+        if(pos >= this._charMap.length) pos -= this._charMap.length;
+        
+        this.output += this._charMap[pos];
+      } else {
+        this.err = "Invalid argument";
+        return this;
+      }
+    }
+    
+    return this;
+  }
+}
